@@ -1,0 +1,6 @@
+{
+  "name": "Mavier Parfums - Catálogo Exclusivo",
+  "description": "Catálogo exclusivo de alta perfumaria árabe Mavier Parfums com fechamento de pedido direto no WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
