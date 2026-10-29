@@ -19,11 +19,14 @@ export const TrustBar: React.FC = () => {
 
           <div className="flex items-center justify-center md:justify-start gap-3">
             <div className="w-9 h-9 rounded-lg bg-[#18181b] border border-[#27272a] flex items-center justify-center shrink-0">
-              <CreditCard className="w-4 h-4 text-[#d4af37]" />
+              <CreditCard className="w-4 h-4 text-[#22c55e]" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-[#f4f4f5]">PIX, Crédito & Débito</p>
-              <p className="text-[11px] text-[#71717a]">Facilidade no fechamento</p>
+              <p className="text-xs font-semibold text-[#f4f4f5] flex items-center gap-1.5">
+                <span>5% OFF no Pix</span>
+                <span className="text-[9px] font-bold px-1 rounded bg-[#22c55e]/20 text-[#22c55e]">PIX</span>
+              </p>
+              <p className="text-[11px] text-[#71717a]">Ou até 3x sem juros no cartão</p>
             </div>
           </div>
 

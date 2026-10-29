@@ -170,20 +170,33 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     {formatCurrency(subtotal)}
                   </span>
                 </div>
+                <div className="flex justify-between text-[#22c55e]">
+                  <span className="flex items-center gap-1 font-medium">
+                    <span>Desconto no Pix (5%)</span>
+                  </span>
+                  <span className="font-mono tabular-nums font-semibold">
+                    - {formatCurrency(subtotal * 0.05)}
+                  </span>
+                </div>
                 <div className="flex justify-between text-[#71717a]">
                   <span>Entrega / Frete</span>
                   <span className="text-[#d4af37]">A confirmar via WhatsApp</span>
                 </div>
                 <div className="pt-2 border-t border-[#27272a] flex justify-between items-baseline">
-                  <span className="text-sm font-semibold text-[#f4f4f5]">
-                    Total Estimado
-                  </span>
-                  <span className="text-xl font-bold font-mono text-[#f7e2a9] tabular-nums">
-                    {formatCurrency(subtotal)}
+                  <div>
+                    <span className="text-sm font-semibold text-[#f4f4f5] block">
+                      Total no Pix
+                    </span>
+                    <span className="text-[10px] text-[#22c55e] font-medium">
+                      com 5% de desconto
+                    </span>
+                  </div>
+                  <span className="text-2xl font-bold font-mono text-[#f7e2a9] tabular-nums">
+                    {formatCurrency(subtotal * 0.95)}
                   </span>
                 </div>
                 <p className="text-[11px] text-[#71717a] font-mono">
-                  ou 3x de {formatCurrency(subtotal / 3)} sem juros no cartão
+                  ou {formatCurrency(subtotal)} em até 3x de {formatCurrency(subtotal / 3)} sem juros no cartão
                 </p>
               </div>
 

@@ -26,6 +26,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     }, 1500);
   };
 
+  const pixPrice = product.price * 0.95;
   const installmentValue = product.price / 3;
 
   return (
@@ -103,22 +104,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {product.olfactoryFamily || product.description}
         </p>
 
-        {/* Price and Installments */}
-        <div className="pt-2 mt-auto border-t border-[#27272a]/60">
-          <div className="flex items-baseline justify-between gap-2">
-            <div>
-              <span className="text-xs text-[#71717a] block">Preço especial:</span>
-              <span className="text-xl font-bold font-mono text-[#f7e2a9] tabular-nums">
-                {formatCurrency(product.price)}
+        {/* Price and Installments with 5% Pix Discount */}
+        <div className="pt-2.5 mt-auto border-t border-[#27272a]/60">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-1">
+              <span className="text-[11px] font-semibold text-[#22c55e] flex items-center gap-1.5 uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse" />
+                no Pix
+              </span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] font-mono">
+                5% OFF
               </span>
             </div>
-            <div className="text-right">
-              <span className="text-[11px] text-[#a1a1aa] block font-mono">
-                ou 3x de {formatCurrency(installmentValue)}
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="text-2xl font-bold font-mono text-[#f7e2a9] tabular-nums leading-none">
+                {formatCurrency(pixPrice)}
               </span>
-              <span className="text-[10px] text-[#22c55e] font-medium block">
-                Sem juros
-              </span>
+              <div className="text-right">
+                <span className="text-xs text-[#a1a1aa] line-through font-mono">
+                  {formatCurrency(product.price)}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-0.5">
+              <span>ou até 3x de {formatCurrency(installmentValue)}</span>
+              <span className="text-[#a1a1aa]">sem juros</span>
             </div>
           </div>
         </div>

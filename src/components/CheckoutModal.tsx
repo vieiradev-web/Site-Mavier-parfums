@@ -376,19 +376,24 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 onClick={() => setPaymentMethod('pix')}
                 className={`p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
                   paymentMethod === 'pix'
-                    ? 'bg-[#18181b] border-[#d4af37] shadow-lg shadow-[#d4af37]/10'
+                    ? 'bg-[#18181b] border-[#22c55e] shadow-lg shadow-[#22c55e]/10'
                     : 'bg-[#141418] border-[#27272a] hover:border-[#3f3f46]'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-sm text-[#f4f4f5]">PIX</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-sm text-[#f4f4f5]">PIX</span>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/20 border border-[#22c55e]/40 text-[#22c55e] font-mono">
+                      5% OFF
+                    </span>
+                  </div>
                   <QrCode className="w-4 h-4 text-[#22c55e]" />
                 </div>
                 <p className="text-[11px] text-[#a1a1aa] leading-relaxed">
-                  Confirmação instantânea. A chave será enviada na conversa do WhatsApp.
+                  Confirmação instantânea com 5% de desconto automático no valor do pedido!
                 </p>
                 <span className="inline-block mt-2 text-[10px] uppercase font-semibold text-[#22c55e]">
-                  Recomendado · Mais Rápido
+                  Total: {formatCurrency(subtotal * 0.95)} · Mais Rápido
                 </span>
               </button>
 
@@ -461,7 +466,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <h4 className="text-xs uppercase tracking-wider font-semibold text-[#f4f4f5] flex items-center justify-between">
               <span>Resumo do Pedido ({items.length} fragrância{items.length === 1 ? '' : 's'})</span>
               <span className="text-[#d4af37] font-mono font-bold text-sm">
-                Total: {formatCurrency(subtotal)}
+                Total: {formatCurrency(paymentMethod === 'pix' ? subtotal * 0.95 : subtotal)}
               </span>
             </h4>
 
@@ -477,6 +482,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
               ))}
             </div>
+
+            {paymentMethod === 'pix' && (
+              <div className="pt-2 border-t border-[#27272a] flex justify-between items-center text-xs text-[#22c55e]">
+                <span className="flex items-center gap-1 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+                  Desconto especial Pix (5%):
+                </span>
+                <span className="font-mono font-bold">- {formatCurrency(subtotal * 0.05)}</span>
+              </div>
+            )}
 
             <div className="pt-2 border-t border-[#27272a] flex items-center justify-between text-xs">
               <span className="text-[#71717a]">Número WhatsApp de Envio:</span>

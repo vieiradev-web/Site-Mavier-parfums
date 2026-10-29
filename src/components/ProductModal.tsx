@@ -92,21 +92,33 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             )}
           </div>
 
-          {/* Pricing Box */}
-          <div className="bg-[#18181b] p-4 rounded-xl border border-[#27272a]">
-            <div className="flex items-baseline justify-between">
+          {/* Pricing Box with 5% Pix Discount */}
+          <div className="bg-[#18181b] p-5 rounded-xl border border-[#27272a] space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-xs font-semibold text-[#22c55e]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+                5% de Desconto no Pix
+              </span>
+              <span className="text-xs text-[#a1a1aa] line-through font-mono">
+                {formatCurrency(product.price)}
+              </span>
+            </div>
+
+            <div className="flex items-baseline justify-between gap-4">
               <div>
-                <span className="text-xs text-[#71717a] block">Valor à vista / parcelado:</span>
+                <span className="text-[11px] text-[#71717a] block uppercase tracking-wider font-medium">
+                  Preço à vista no Pix:
+                </span>
                 <span className="text-3xl font-bold font-mono text-[#f7e2a9] tabular-nums">
-                  {formatCurrency(product.price)}
+                  {formatCurrency(product.price * 0.95)}
                 </span>
               </div>
               <div className="text-right">
                 <span className="text-xs text-[#a1a1aa] font-mono block">
-                  3x de {formatCurrency(product.price / 3)}
+                  ou 3x de {formatCurrency(product.price / 3)}
                 </span>
                 <span className="text-xs text-[#22c55e] font-medium">
-                  Sem acréscimo
+                  Sem juros no cartão
                 </span>
               </div>
             </div>

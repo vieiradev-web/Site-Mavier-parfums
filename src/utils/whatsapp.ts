@@ -11,7 +11,7 @@ export function formatCurrency(value: number): string {
 export function formatPaymentMethod(method: 'pix' | 'credit' | 'debit'): string {
   switch (method) {
     case 'pix':
-      return 'PIX (Chave rápida com confirmação imediata)';
+      return 'PIX (com 5% de desconto aplicado)';
     case 'credit':
       return 'Cartão de Crédito (Link de pagamento / Máquina)';
     case 'debit':
@@ -29,6 +29,10 @@ export function generateOrderWhatsAppMessage(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
+
+  const isPix = customerInfo.paymentMethod === 'pix';
+  const pixDiscount = isPix ? subtotal * 0.05 : 0;
+  const finalTotal = subtotal - pixDiscount;
 
   const itemsList = cartItems
     .map((item, index) => {
@@ -48,6 +52,10 @@ export function generateOrderWhatsAppMessage(
   const notesText = customerInfo.notes
     ? `\n\n📝 *Observações adicionais:*\n"${customerInfo.notes}"`
     : '';
+
+  const totalBlock = isPix
+    ? `• Subtotal: ${formatCurrency(subtotal)}\n• 🎁 *Desconto Pix (5% OFF):* -${formatCurrency(pixDiscount)}\n• *VALOR TOTAL NO PIX: ${formatCurrency(finalTotal)}*`
+    : `• *${formatCurrency(subtotal)}*\n• _(ou em até 3x de ${formatCurrency(subtotal / 3)} sem juros no cartão)_`;
 
   const message = `✨ *NOVO PEDIDO — ${STORE_INFO.name.toUpperCase()}* ✨
 ━━━━━━━━━━━━━━━━━━━━━━━
@@ -72,7 +80,7 @@ ${itemsList}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
 💰 *VALOR TOTAL DO PEDIDO:*
-• *${formatCurrency(subtotal)}*
+${totalBlock}
 
 *(Frete / prazo de entrega a confirmar com o atendente)*${notesText}
 
