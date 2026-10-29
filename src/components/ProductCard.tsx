@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Plus, Check, Eye, Sparkles } from 'lucide-react';
+import { Plus, Check, Eye, Sparkles, MessageCircle } from 'lucide-react';
 import { Product } from '../types';
+import { STORE_INFO } from '../data/products';
 import { formatCurrency } from '../utils/whatsapp';
 
 interface ProductCardProps {
@@ -104,34 +105,62 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {product.olfactoryFamily || product.description}
         </p>
 
-        {/* Price and Installments with 5% Pix Discount */}
-        <div className="pt-2.5 mt-auto border-t border-[#27272a]/60">
-          <div className="space-y-1">
-            <div className="flex items-center justify-between gap-1">
-              <span className="text-[11px] font-semibold text-[#22c55e] flex items-center gap-1.5 uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse" />
-                no Pix
-              </span>
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] font-mono">
-                5% OFF
-              </span>
-            </div>
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="text-2xl font-bold font-mono text-[#f7e2a9] tabular-nums leading-none">
-                {formatCurrency(pixPrice)}
-              </span>
-              <div className="text-right">
-                <span className="text-xs text-[#a1a1aa] line-through font-mono">
-                  {formatCurrency(product.price)}
+        {/* Price and Installments with 5% Pix Discount OR Decant Pending Price */}
+        {product.isPricePending ? (
+          <div className="pt-2.5 mt-auto border-t border-[#27272a]/60">
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-1">
+                <span className="text-[11px] font-semibold text-[#d4af37] flex items-center gap-1.5 uppercase tracking-wider">
+                  <Sparkles className="w-3 h-3 text-[#d4af37]" />
+                  Decant 5ml
+                </span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#d4af37]/15 border border-[#d4af37]/30 text-[#f7e2a9]">
+                  Sob Consulta
                 </span>
               </div>
-            </div>
-            <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-0.5">
-              <span>ou até 3x de {formatCurrency(installmentValue)}</span>
-              <span className="text-[#a1a1aa]">sem juros</span>
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-xl font-bold font-mono text-[#f7e2a9] tabular-nums leading-none">
+                  Preço a Definir
+                </span>
+                <span className="text-xs text-[#71717a] font-mono">
+                  R$ --,--
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-0.5">
+                <span>Fração 100% original</span>
+                <span className="text-[#a1a1aa]">Spray dourado</span>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="pt-2.5 mt-auto border-t border-[#27272a]/60">
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-1">
+                <span className="text-[11px] font-semibold text-[#22c55e] flex items-center gap-1.5 uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse" />
+                  no Pix
+                </span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-[#22c55e] font-mono">
+                  5% OFF
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-2xl font-bold font-mono text-[#f7e2a9] tabular-nums leading-none">
+                  {formatCurrency(pixPrice)}
+                </span>
+                <div className="text-right">
+                  <span className="text-xs text-[#a1a1aa] line-through font-mono">
+                    {formatCurrency(product.price)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-0.5">
+                <span>ou até 3x de {formatCurrency(installmentValue)}</span>
+                <span className="text-[#a1a1aa]">sem juros</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Card Actions */}
         <div className="pt-3 grid grid-cols-2 gap-2">
@@ -142,27 +171,42 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             Ver Detalhes
           </button>
 
-          <button
-            onClick={handleAdd}
-            aria-label={`Adicionar ${product.name} ao carrinho`}
-            className={`w-full py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
-              justAdded
-                ? 'bg-[#22c55e] text-white shadow-md'
-                : 'bg-[#d4af37] hover:bg-[#e2be4a] text-[#09090b] shadow-sm shadow-[#d4af37]/20'
-            }`}
-          >
-            {justAdded ? (
-              <>
-                <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                <span>Adicionado!</span>
-              </>
-            ) : (
-              <>
-                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                <span>Adicionar</span>
-              </>
-            )}
-          </button>
+          {product.isPricePending ? (
+            <a
+              href={`https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(
+                `Olá! Gostaria de saber o valor e a disponibilidade do ${product.name}.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Consultar valor do ${product.name} no WhatsApp`}
+              className="w-full py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap bg-[#22c55e] hover:bg-[#16a34a] text-white shadow-sm shadow-[#22c55e]/20"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>Consultar</span>
+            </a>
+          ) : (
+            <button
+              onClick={handleAdd}
+              aria-label={`Adicionar ${product.name} ao carrinho`}
+              className={`w-full py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                justAdded
+                  ? 'bg-[#22c55e] text-white shadow-md'
+                  : 'bg-[#d4af37] hover:bg-[#e2be4a] text-[#09090b] shadow-sm shadow-[#d4af37]/20'
+              }`}
+            >
+              {justAdded ? (
+                <>
+                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Adicionado!</span>
+                </>
+              ) : (
+                <>
+                  <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Adicionar</span>
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </article>

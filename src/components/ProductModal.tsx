@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, ShoppingBag, ShieldCheck, Sparkles, Check, ChevronRight } from 'lucide-react';
+import { X, ShoppingBag, ShieldCheck, Sparkles, Check, ChevronRight, MessageCircle } from 'lucide-react';
 import { Product } from '../types';
+import { STORE_INFO } from '../data/products';
 import { formatCurrency } from '../utils/whatsapp';
 
 interface ProductModalProps {
@@ -92,37 +93,70 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             )}
           </div>
 
-          {/* Pricing Box with 5% Pix Discount */}
-          <div className="bg-[#18181b] p-5 rounded-xl border border-[#27272a] space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-xs font-semibold text-[#22c55e]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-                5% de Desconto no Pix
-              </span>
-              <span className="text-xs text-[#a1a1aa] line-through font-mono">
-                {formatCurrency(product.price)}
-              </span>
-            </div>
+          {/* Pricing Box with 5% Pix Discount OR Pending Decant Price */}
+          {product.isPricePending ? (
+            <div className="bg-[#18181b] p-5 rounded-xl border border-[#d4af37]/40 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#d4af37]/15 border border-[#d4af37]/30 text-xs font-semibold text-[#f7e2a9]">
+                  <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+                  Fração Original 5ml
+                </span>
+                <span className="text-xs font-mono font-medium text-[#a1a1aa]">
+                  Valor sob consulta
+                </span>
+              </div>
 
-            <div className="flex items-baseline justify-between gap-4">
-              <div>
-                <span className="text-[11px] text-[#71717a] block uppercase tracking-wider font-medium">
-                  Preço à vista no Pix:
-                </span>
-                <span className="text-3xl font-bold font-mono text-[#f7e2a9] tabular-nums">
-                  {formatCurrency(product.price * 0.95)}
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="text-xs text-[#a1a1aa] font-mono block">
-                  ou 3x de {formatCurrency(product.price / 3)}
-                </span>
-                <span className="text-xs text-[#22c55e] font-medium">
-                  Sem juros no cartão
-                </span>
+              <div className="flex items-baseline justify-between gap-4">
+                <div>
+                  <span className="text-[11px] text-[#71717a] block uppercase tracking-wider font-medium">
+                    Valor do Decant:
+                  </span>
+                  <span className="text-2xl sm:text-3xl font-bold font-mono text-[#f7e2a9]">
+                    Preço a Definir
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs text-[#a1a1aa] block">
+                    Volume: 5 ml (~75 borrifadas)
+                  </span>
+                  <span className="text-xs text-[#22c55e] font-medium">
+                    Frasco de vidro c/ spray dourado
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="bg-[#18181b] p-5 rounded-xl border border-[#27272a] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-xs font-semibold text-[#22c55e]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+                  5% de Desconto no Pix
+                </span>
+                <span className="text-xs text-[#a1a1aa] line-through font-mono">
+                  {formatCurrency(product.price)}
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between gap-4">
+                <div>
+                  <span className="text-[11px] text-[#71717a] block uppercase tracking-wider font-medium">
+                    Preço à vista no Pix:
+                  </span>
+                  <span className="text-3xl font-bold font-mono text-[#f7e2a9] tabular-nums">
+                    {formatCurrency(product.price * 0.95)}
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs text-[#a1a1aa] font-mono block">
+                    ou 3x de {formatCurrency(product.price / 3)}
+                  </span>
+                  <span className="text-xs text-[#22c55e] font-medium">
+                    Sem juros no cartão
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Detailed Description */}
           <div className="space-y-3">
@@ -180,61 +214,82 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </div>
           )}
 
-          {/* Purchase Actions module */}
+          {/* Purchase Actions module OR WhatsApp Consult for Decant */}
           <div className="pt-4 border-t border-[#27272a] space-y-4">
-            <div className="flex items-center gap-4">
-              <span className="text-xs uppercase tracking-wider text-[#a1a1aa] font-medium">
-                Quantidade:
-              </span>
-              <div className="flex items-center bg-[#18181b] border border-[#27272a] rounded-lg">
-                <button
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="px-3 py-1.5 text-sm font-bold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
+            {product.isPricePending ? (
+              <div className="space-y-3">
+                <a
+                  href={`https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(
+                    `Olá! Gostaria de consultar o valor e pedir o Decant 5ml de ${product.name}.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-lg bg-[#22c55e] hover:bg-[#16a34a] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#22c55e]/25 text-center"
                 >
-                  -
-                </button>
-                <span className="px-3 py-1.5 text-xs font-mono font-bold text-[#f4f4f5]">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity((q) => q + 1)}
-                  className="px-3 py-1.5 text-sm font-bold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
-                >
-                  +
-                </button>
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Consultar Valor e Pedir no WhatsApp</span>
+                </a>
+                <p className="text-center text-[11px] text-[#a1a1aa]">
+                  Fração original de 5ml em frasco de vidro com spray dourado. Atendimento exclusivo via WhatsApp.
+                </p>
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs uppercase tracking-wider text-[#a1a1aa] font-medium">
+                    Quantidade:
+                  </span>
+                  <div className="flex items-center bg-[#18181b] border border-[#27272a] rounded-lg">
+                    <button
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="px-3 py-1.5 text-sm font-bold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
+                    >
+                      -
+                    </button>
+                    <span className="px-3 py-1.5 text-xs font-mono font-bold text-[#f4f4f5]">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity((q) => q + 1)}
+                      className="px-3 py-1.5 text-sm font-bold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                onClick={handleAdd}
-                className={`w-full py-3 px-4 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
-                  added
-                    ? 'bg-[#22c55e] text-white'
-                    : 'bg-[#18181b] hover:bg-[#222228] border border-[#d4af37] text-[#f7e2a9]'
-                }`}
-              >
-                {added ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    <span>Adicionado!</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>Adicionar ao Carrinho</span>
-                  </>
-                )}
-              </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    onClick={handleAdd}
+                    className={`w-full py-3 px-4 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
+                      added
+                        ? 'bg-[#22c55e] text-white'
+                        : 'bg-[#18181b] hover:bg-[#222228] border border-[#d4af37] text-[#f7e2a9]'
+                    }`}
+                  >
+                    {added ? (
+                      <>
+                        <Check className="w-4 h-4" />
+                        <span>Adicionado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-4 h-4" />
+                        <span>Adicionar ao Carrinho</span>
+                      </>
+                    )}
+                  </button>
 
-              <button
-                onClick={handleDirectBuy}
-                className="w-full py-3 px-4 rounded-lg bg-[#d4af37] hover:bg-[#e2be4a] text-[#09090b] text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-[#d4af37]/25"
-              >
-                <span>Finalizar Pedido</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+                  <button
+                    onClick={handleDirectBuy}
+                    className="w-full py-3 px-4 rounded-lg bg-[#d4af37] hover:bg-[#e2be4a] text-[#09090b] text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-[#d4af37]/25"
+                  >
+                    <span>Finalizar Pedido</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </>
+            )}
 
             {/* Authenticity guarantee */}
             <div className="flex items-center gap-2 text-[11px] text-[#71717a] pt-1">

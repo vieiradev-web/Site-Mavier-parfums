@@ -123,10 +123,12 @@ export default function App() {
   // Filtering & Sorting logic
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
-      // Category / Gender filter
+      // Category / Gender / Decant filter
       if (filters.category !== 'Todos') {
-        if (filters.category === 'Perfume Árabe') {
-          if (product.category !== 'Perfume Árabe') return false;
+        if (filters.category === 'Decants (5ml)') {
+          if (!product.isDecant) return false;
+        } else if (filters.category === 'Frascos Originais (100ml)' || filters.category === 'Perfume Árabe') {
+          if (product.isDecant) return false;
         } else if (['Masculino', 'Feminino', 'Unissex'].includes(filters.category)) {
           if (product.gender !== filters.category) return false;
         }
@@ -139,8 +141,8 @@ export default function App() {
         }
       }
 
-      // Max price filter
-      if (product.price > filters.maxPrice) {
+      // Max price filter (applicable to priced products)
+      if (!product.isPricePending && product.price > filters.maxPrice) {
         return false;
       }
 
@@ -166,8 +168,16 @@ export default function App() {
 
       return true;
     }).sort((a, b) => {
-      if (filters.sortBy === 'price-asc') return a.price - b.price;
-      if (filters.sortBy === 'price-desc') return b.price - a.price;
+      if (filters.sortBy === 'price-asc') {
+        if (a.isPricePending) return 1;
+        if (b.isPricePending) return -1;
+        return a.price - b.price;
+      }
+      if (filters.sortBy === 'price-desc') {
+        if (a.isPricePending) return 1;
+        if (b.isPricePending) return -1;
+        return b.price - a.price;
+      }
       if (filters.sortBy === 'name-asc') return a.name.localeCompare(b.name);
       return 0; // default featured order
     });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import { Search, SlidersHorizontal, RotateCcw, Sparkles } from 'lucide-react';
 import { CATEGORIES, BRANDS } from '../data/products';
 import { formatCurrency } from '../utils/whatsapp';
 
@@ -128,16 +128,20 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           {CATEGORIES.map((cat) => {
             const isActive = filters.category === cat;
+            const isDecantTab = cat === 'Decants (5ml)';
             return (
               <button
                 key={cat}
                 onClick={() => onFilterChange({ ...filters, category: cat })}
-                className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-wide transition-all duration-150 cursor-pointer whitespace-nowrap ${
+                className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-wide transition-all duration-150 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                   isActive
                     ? 'bg-[#d4af37] text-[#09090b] font-semibold shadow-sm'
+                    : isDecantTab
+                    ? 'bg-[#18181b] text-[#f7e2a9] hover:text-white border border-[#d4af37]/50 shadow-sm shadow-[#d4af37]/10'
                     : 'bg-[#18181b] text-[#a1a1aa] hover:text-[#f4f4f5] border border-[#27272a]'
                 }`}
               >
+                {isDecantTab && <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />}
                 {cat}
               </button>
             );

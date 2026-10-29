@@ -17,6 +17,8 @@ export interface Product {
   concentration?: string;
   image: string;
   tag?: string;
+  isPricePending?: boolean;
+  isDecant?: boolean;
 }
 
 export interface CartItem {
