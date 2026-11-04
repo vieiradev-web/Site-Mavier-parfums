@@ -1,20 +1,41 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Mavier Parfums — Catálogo online
 
-# Run and deploy your AI Studio app
+Catálogo de perfumes árabes com carrinho e fechamento de pedido direto no WhatsApp.
+Feito com React, Vite e Tailwind CSS.
 
-This contains everything you need to run your app locally.
+## Rodar no computador
 
-View your app in AI Studio: https://ai.studio/apps/50f6c0da-83de-48bd-9906-3efd9b9633ef
+```bash
+npm install
+npm run dev        # abre em http://localhost:3000
+```
 
-## Run Locally
+## Onde mexer
 
-**Prerequisites:**  Node.js
+| O que mudar | Arquivo |
+| --- | --- |
+| Produtos, preços, categorias, marcas, número do WhatsApp | `src/data/products.ts` |
+| Mensagem do pedido enviada ao WhatsApp | `src/utils/whatsapp.ts` |
+| Fotos | `public/image/` (use o caminho `./image/nome.jpg` no produto) |
 
+- **Preço de um produto:** altere o campo `price`. O carrinho de quem já visitou o site é atualizado sozinho.
+- **Produto "sob consulta":** use `price: 0` e `isPricePending: true`; ele mostra o botão de consultar pelo WhatsApp.
+- **Filtro de valor:** os limites do controle deslizante são calculados automaticamente a partir dos preços cadastrados.
+- **Desconto no Pix:** 5% (aplicado no carrinho, no checkout e na mensagem do WhatsApp).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Conferir as imagens
+
+```bash
+npm run check:images
+```
+
+Lista qualquer imagem usada no código que não exista em `public/image/` (inclusive diferenças de maiúsculas e minúsculas, que importam no GitHub Pages).
+
+## Publicar (GitHub Pages)
+
+```bash
+npm run build      # gera a pasta dist/
+```
+
+Publique o **conteúdo** da pasta `dist/` (o `index.html` e a pasta `assets/`, junto com as imagens) no repositório do site.
+Guarde também o código-fonte (`src/`, `public/`, `package.json`, `vite.config.ts` e `index.html` da raiz) em um repositório ou branch, para poder editar o site depois.

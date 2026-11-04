@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, SlidersHorizontal, RotateCcw, Sparkles } from 'lucide-react';
-import { CATEGORIES, BRANDS } from '../data/products';
+import { CATEGORIES, BRANDS, PRICE_MIN, PRICE_MAX } from '../data/products';
 import { formatCurrency } from '../utils/whatsapp';
 
 export interface FilterOptions {
@@ -28,7 +28,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const isFiltered =
     filters.category !== 'Todos' ||
     filters.brand !== 'Todas' ||
-    filters.maxPrice < 320 ||
+    filters.maxPrice < PRICE_MAX ||
     filters.pricePreset !== 'all' ||
     filters.searchQuery.trim() !== '' ||
     filters.sortBy !== 'featured';
@@ -37,7 +37,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     onFilterChange({
       category: 'Todos',
       brand: 'Todas',
-      maxPrice: 320,
+      maxPrice: PRICE_MAX,
       pricePreset: 'all',
       sortBy: 'featured',
       searchQuery: '',
@@ -45,10 +45,10 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   const handlePricePreset = (preset: 'all' | 'under220' | '220to270' | 'above270') => {
-    let maxP = 320;
+    let maxP = PRICE_MAX;
     if (preset === 'under220') maxP = 220;
     else if (preset === '220to270') maxP = 270;
-    else if (preset === 'above270') maxP = 320;
+    else if (preset === 'above270') maxP = PRICE_MAX;
 
     onFilterChange({
       ...filters,
@@ -190,7 +190,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <button
               onClick={() => handlePricePreset('all')}
               className={`px-2.5 py-1 text-[11px] rounded transition-colors cursor-pointer ${
-                filters.pricePreset === 'all' && filters.maxPrice >= 320
+                filters.pricePreset === 'all' && filters.maxPrice >= PRICE_MAX
                   ? 'bg-[#d4af37]/20 text-[#f7e2a9] border border-[#d4af37]/40 font-medium'
                   : 'bg-[#18181b] text-[#71717a] hover:text-[#f4f4f5]'
               }`}
@@ -232,11 +232,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         {/* Interactive Slider */}
         <div className="flex items-center gap-4">
-          <span className="text-xs font-mono text-[#71717a]">R$ 190</span>
+          <span className="text-xs font-mono text-[#71717a]">R$ {PRICE_MIN}</span>
           <input
             type="range"
-            min={195}
-            max={320}
+            min={PRICE_MIN}
+            max={PRICE_MAX}
             step={5}
             value={filters.maxPrice}
             onChange={(e) =>
@@ -248,7 +248,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             }
             className="flex-1 accent-[#d4af37] h-1.5 bg-[#27272a] rounded-lg cursor-pointer"
           />
-          <span className="text-xs font-mono text-[#71717a]">R$ 320</span>
+          <span className="text-xs font-mono text-[#71717a]">R$ {PRICE_MAX}</span>
         </div>
       </div>
 

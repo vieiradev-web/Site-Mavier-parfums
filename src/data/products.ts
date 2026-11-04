@@ -1,7 +1,7 @@
 import { Product } from '../types';
 
 export const STORE_INFO = {
-  name: 'Mavier parfums',
+  name: 'Mavier Parfums',
   tagline: 'Alta Perfumaria Árabe & Criações Exclusivas',
   whatsappDisplay: '(55) 81 9 8125-2680',
   whatsappNumber: '5581981252680', // clean number for wa.me link
@@ -329,7 +329,7 @@ Com excelente projeção e fixação, o Bareeq Al Dhahab entrega uma experiênci
   },
   // -------------------------------------------------------------
   // DECANTS (5ml) — Frações Exclusivas em Frascos de Vidro Premium
-  // Espaço de preço reservado (isPricePending: true)
+  // Preços: R$ 35 (Asad, Club de Nuit, Yara Rosa, Raneen) e R$ 30 (demais).
   // -------------------------------------------------------------
   {
     id: 'decant-asad-tradicional',
@@ -337,14 +337,13 @@ Com excelente projeção e fixação, o Bareeq Al Dhahab entrega uma experiênci
     category: 'Decant',
     brand: 'Lattafa',
     gender: 'Masculino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Oriental Especiado & Amadeirado',
     image: './image/decant_asad_tradicional.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml fracionado diretamente do frasco original lacrado do aclamado Asad Tradicional Lattafa.
 Apresentado em frasco de vidro de alta qualidade com spray pump dourado luxuoso, rendendo entre 70 e 80 borrifadas completas.
 Ideal para você experimentar na sua pele toda a evolução, intensidade e rastro dessa fragrância especiada oriental icônica antes de adquirir o frasco de 100ml.`,
@@ -366,14 +365,13 @@ Ideal para você experimentar na sua pele toda a evolução, intensidade e rastr
     category: 'Decant',
     brand: 'Lattafa',
     gender: 'Masculino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum Elixir (Fração 5ml)',
     olfactoryFamily: 'Amadeirada · Aromática · Especiada Oriental',
     image: './image/decant_asad_elixir.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml oficial do cobiçado Asad Elixir Lattafa, o grande lançamento da casa árabe.
 Fracionado com rigor e precisão em elegante frasco de vidro de 5ml com borrifador dourado (~70 a 80 borrifadas).
 Experimente a versão mais densa, magnética e poderosa da linha Asad, sentindo o calor do tabaco, açafrão nobre e madeiras preciosas.`,
@@ -395,14 +393,13 @@ Experimente a versão mais densa, magnética e poderosa da linha Asad, sentindo 
     category: 'Decant',
     brand: 'Lattafa',
     gender: 'Feminino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Floral Gourmand Envolvente',
     image: './image/decant_yara_rosa.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do mais adorado perfume feminino da perfumaria árabe: Yara Rosa Lattafa.
 Extraído diretamente do frasco original lacrado para um frasco de vidro travel-size de 5ml com spray dourado de fino acabamento.
 Permite sentir na própria pele sua abertura aveludada com frutas tropicais, orquídea e o famoso fundo de baunilha e sândalo cremoso.`,
@@ -424,14 +421,13 @@ Permite sentir na própria pele sua abertura aveludada com frutas tropicais, orq
     category: 'Decant',
     brand: 'Lattafa',
     gender: 'Feminino',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Floral Frutado Tropical & Cremoso',
     image: './image/decant_yara_tous.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml fracionado do exótico e ensolarado Yara Tous Amarelo da Lattafa.
 Embalagem de vidro resistente com spray pump dourado de alta precisão (~70-80 borrifadas).
 Descubra a combinação deliciosa de manga madura, coco e maracujá com flor de laranjeira e baunilha cremosa na sua pele.`,
@@ -453,14 +449,13 @@ Descubra a combinação deliciosa de manga madura, coco e maracujá com flor de 
     category: 'Decant',
     brand: 'Armaf',
     gender: 'Masculino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Amadeirado Especiado Cítrico',
     image: './image/decant_club_de_nuit_man.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do lendário Club De Nuit Intense Man da prestigiada casa Armaf.
 Fracionado cuidadosamente a partir do frasco original lacrado para frasco travel de vidro com borrifador metálico dourado.
 Sinta o poder da abertura de limão e abacaxi seguida pelo coração esfumado de bétula e base de âmbar cinzento.`,
@@ -482,14 +477,13 @@ Sinta o poder da abertura de limão e abacaxi seguida pelo coração esfumado de
     category: 'Decant',
     brand: 'Armaf',
     gender: 'Feminino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Chipre Floral Envolvente',
     image: './image/decant_club_de_nuit_woman.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml da sofisticada fragrância feminina Club de Nuit Intense Woman da Armaf.
 Retirada com absoluta pureza do frasco lacrado para um frasco de vidro de 5ml com tampa e spray dourados.
 Uma fragrância sedutora, misteriosa e potente da família chipre floral com rosas escuras, açafrão, especiarias e fundo de oud e patchouli.`,
@@ -511,14 +505,13 @@ Uma fragrância sedutora, misteriosa e potente da família chipre floral com ros
     category: 'Decant',
     brand: 'Lattafa',
     gender: 'Unissex',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Oriental Gourmand & Resinoso Esfumado',
     image: './image/decant_khamrah_dukhan.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do misterioso e opulento Khamrah Dukhan da Lattafa.
 Fracionado artesanalmente com rigor a partir do frasco original lacrado para frasco de vidro 5ml com válvula dourada.
 Aprecie as nuances ricas de incenso sagrado, tabaco nobre, pralinê e especiarias quentes com projeção arrasadora.`,
@@ -540,14 +533,13 @@ Aprecie as nuances ricas de incenso sagrado, tabaco nobre, pralinê e especiaria
     category: 'Decant',
     brand: 'Asdaaf',
     gender: 'Feminino',
-    price: 0,
+    price: 35,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Floral Frutado Gourmand',
     image: './image/decant_raneen.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do encantador lançamento Raneen da casa Asdaaf (linha de luxo Lattafa).
 Disponibilizado em frasco de vidro de alta qualidade de 5ml com borrifador spray dourado (~70 a 80 borrifadas).
 Descubra a combinação floral moderna com notas luminosas de pitaia rosada, pera fresca, flor de laranjeira e fava tonka.`,
@@ -569,14 +561,13 @@ Descubra a combinação floral moderna com notas luminosas de pitaia rosada, per
     category: 'Decant',
     brand: 'Maison Alhambra',
     gender: 'Feminino',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Floral Branco Amadeirado Sofisticado',
     image: './image/decant_l_intrude.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do aclamado L'Intrude Maison Alhambra, fragrância feminina que transborda elegância.
 Fracionado diretamente do frasco original para um travel atomizer de vidro 5ml com acabamento dourado.
 Experimente o buquê magnífico de tuberosa e jasmim sambac com notas de topo de pera e fundo amadeirado de vetiver e patchouli.`,
@@ -598,14 +589,13 @@ Experimente o buquê magnífico de tuberosa e jasmim sambac com notas de topo de
     category: 'Decant',
     brand: 'Maison Alhambra',
     gender: 'Unissex',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Cítrico Frutado Ambarado',
     image: './image/decant_philos_pura.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do versátil e apaixonante Philos Pura Maison Alhambra.
 Apresentado em frasco de vidro de 5ml com spray dourado de alto padrão (~70 a 80 borrifadas).
 Fragrância unissex vibrante com explosão cítrica mediterrânea de laranja e limão sicilianos combinados a frutas maduras, baunilha de Madagascar e âmbar.`,
@@ -627,14 +617,13 @@ Fragrância unissex vibrante com explosão cítrica mediterrânea de laranja e l
     category: 'Decant',
     brand: 'Maison Alhambra',
     gender: 'Unissex',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Doce Especiado & Âmbar Precioso',
     image: './image/decant_luxe_gold.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml da refinada fragrância Luxe Gold Maison Alhambra.
 Fracionado diretamente do frasco lacrado para frasco travel em vidro 5ml com válvula e tampa dourada.
 Apresenta rastro doce especiado inebriante com açafrão, canela, rosa damascena, âmbar dourado e oud suave.`,
@@ -656,14 +645,13 @@ Apresenta rastro doce especiado inebriante com açafrão, canela, rosa damascena
     category: 'Decant',
     brand: 'Al Wataniah',
     gender: 'Unissex',
-    price: 0,
+    price: 30,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Oriental Amadeirado & Frutado Imperial',
     image: './image/decant_bareeq_dhahab.jpg',
     tag: 'Decant 5ml',
     isDecant: true,
-    isPricePending: true,
     description: `Decant de 5ml do majestoso Bareeq Al Dhahab da casa árabe Al Wataniah.
 Extraído diretamente do frasco original lacrado para um frasco de vidro de 5ml com spray pump dourado.
 Conheça na sua pele toda a riqueza oriental do açafrão, pimenta rosa, incenso nobre, âmbar e madeiras preciosas.`,
@@ -680,6 +668,12 @@ Conheça na sua pele toda a riqueza oriental do açafrão, pimenta rosa, incenso
     },
   },
 ];
+
+// Limites do filtro de valor, calculados a partir dos preços reais do catálogo.
+// Assim, um perfume mais caro (ou mais barato) cadastrado no futuro nunca fica escondido.
+const pricedValues = PRODUCTS.filter((p) => !p.isPricePending && p.price > 0).map((p) => p.price);
+export const PRICE_MIN = pricedValues.length ? Math.floor(Math.min(...pricedValues) / 5) * 5 : 0;
+export const PRICE_MAX = pricedValues.length ? Math.ceil(Math.max(...pricedValues) / 10) * 10 : 100;
 
 export const CATEGORIES = [
   'Todos',

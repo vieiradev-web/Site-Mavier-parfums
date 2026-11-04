@@ -10,25 +10,51 @@ import { CheckoutModal } from './components/CheckoutModal';
 import { OrderSuccessModal } from './components/OrderSuccessModal';
 import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
-import { PRODUCTS, STORE_INFO } from './data/products';
+import { PRODUCTS, STORE_INFO, PRICE_MAX } from './data/products';
 import { Product, CartItem, CustomerOrderInfo } from './types';
 import { formatCurrency } from './utils/whatsapp';
 import { ShoppingBag, ArrowUp, Sparkles, MessageCircle } from 'lucide-react';
 
+const CART_STORAGE_KEY = 'mavier_cart';
+
+// O carrinho salvo guarda apenas { id, quantity }. Os dados do produto (preço, nome,
+// imagem) são sempre lidos do catálogo atual, então mudar um preço no products.ts
+// vale também para quem já tinha itens salvos no navegador.
+function loadCart(): CartItem[] {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return [];
+    const saved = JSON.parse(raw);
+    if (!Array.isArray(saved)) return [];
+
+    const items: CartItem[] = [];
+    for (const entry of saved) {
+      // aceita também o formato antigo ({ product, quantity })
+      const id = entry?.id ?? entry?.product?.id;
+      const quantity = Math.floor(Number(entry?.quantity));
+      const product = PRODUCTS.find((p) => p.id === id);
+      if (product && !product.isPricePending && quantity > 0) {
+        items.push({ product, quantity });
+      }
+    }
+    return items;
+  } catch {
+    return [];
+  }
+}
+
 export default function App() {
   // Cart state stored in memory and localStorage for resilience
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('mavier_cart');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [cartItems, setCartItems] = useState<CartItem[]>(loadCart);
 
   useEffect(() => {
     try {
-      localStorage.setItem('mavier_cart', JSON.stringify(cartItems));
+      localStorage.setItem(
+        CART_STORAGE_KEY,
+        JSON.stringify(
+          cartItems.map((item) => ({ id: item.product.id, quantity: item.quantity }))
+        )
+      );
     } catch {
       // storage quota or private browsing
     }
@@ -53,7 +79,7 @@ export default function App() {
   const [filters, setFilters] = useState<FilterOptions>({
     category: 'Todos',
     brand: 'Todas',
-    maxPrice: 320,
+    maxPrice: PRICE_MAX,
     pricePreset: 'all',
     sortBy: 'featured',
     searchQuery: '',
@@ -143,6 +169,14 @@ export default function App() {
 
       // Max price filter (applicable to priced products)
       if (!product.isPricePending && product.price > filters.maxPrice) {
+        return false;
+      }
+
+      // Preset "Acima de R$ 270": só mostra produtos com preço acima de 270
+      if (
+        filters.pricePreset === 'above270' &&
+        (product.isPricePending || product.price <= 270)
+      ) {
         return false;
       }
 
@@ -306,7 +340,7 @@ export default function App() {
                   setFilters({
                     category: 'Todos',
                     brand: 'Todas',
-                    maxPrice: 320,
+                    maxPrice: PRICE_MAX,
                     pricePreset: 'all',
                     sortBy: 'featured',
                     searchQuery: '',
@@ -386,6 +420,7 @@ export default function App() {
 
       {/* Product Quickview / PDP Modal */}
       <ProductModal
+        key={selectedProduct?.id ?? 'none'}
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}

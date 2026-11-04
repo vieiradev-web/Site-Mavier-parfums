@@ -25,6 +25,20 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
 
   if (!isOpen || !orderData) return null;
 
+  // Mesmo cálculo da mensagem enviada ao WhatsApp: Pix tem 5% de desconto.
+  const isPix = orderData.customerInfo.paymentMethod === 'pix';
+  const pixDiscount = isPix ? orderData.subtotal * 0.05 : 0;
+  const orderTotal = orderData.subtotal - pixDiscount;
+
+  const paymentLabels: Record<string, string> = {
+    pix: 'Pix',
+    credit: 'Cartão de Crédito',
+    debit: 'Cartão de Débito',
+  };
+  const paymentLabel =
+    paymentLabels[orderData.customerInfo.paymentMethod] ??
+    orderData.customerInfo.paymentMethod;
+
   const handleCopy = () => {
     navigator.clipboard.writeText(orderData.message);
     setCopied(true);
@@ -70,13 +84,31 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
           <div className="flex justify-between items-center text-[#71717a]">
             <span>Forma de Pagamento:</span>
             <span className="text-[#d4af37] font-medium uppercase text-[11px]">
-              {orderData.customerInfo.paymentMethod.toUpperCase()}
+              {paymentLabel}
             </span>
           </div>
+          {isPix && (
+            <>
+              <div className="flex justify-between items-center text-[#71717a]">
+                <span>Subtotal:</span>
+                <span className="font-mono text-[#f4f4f5]">
+                  {formatCurrency(orderData.subtotal)}
+                </span>
+              </div>
+              <div className="flex justify-between items-center text-[#22c55e]">
+                <span>Desconto Pix (5%):</span>
+                <span className="font-mono font-semibold">
+                  - {formatCurrency(pixDiscount)}
+                </span>
+              </div>
+            </>
+          )}
           <div className="pt-2 border-t border-[#27272a] flex justify-between items-baseline">
-            <span className="font-semibold text-[#f4f4f5]">Total do Pedido:</span>
+            <span className="font-semibold text-[#f4f4f5]">
+              {isPix ? 'Total no Pix:' : 'Total do Pedido:'}
+            </span>
             <span className="text-lg font-bold font-mono text-[#f7e2a9]">
-              {formatCurrency(orderData.subtotal)}
+              {formatCurrency(orderTotal)}
             </span>
           </div>
         </div>
