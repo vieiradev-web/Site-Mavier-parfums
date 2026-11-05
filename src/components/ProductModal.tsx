@@ -57,7 +57,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/60 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {product.tag && (
+          {product.soldOut && (
+            <div className="absolute top-5 left-5 z-10 px-3 py-1 rounded bg-[#09090b]/90 border border-[#ef4444]/60 text-xs font-bold tracking-wider uppercase text-[#ef4444]">
+              Esgotado
+            </div>
+          )}
+          {product.tag && !product.soldOut && (
             <div className="absolute top-5 left-5 flex items-center gap-1.5 px-3 py-1 rounded bg-[#09090b]/90 border border-[#d4af37]/50 text-xs font-semibold tracking-wider uppercase text-[#d4af37]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{product.tag}</span>
@@ -216,7 +221,24 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
           {/* Purchase Actions module OR WhatsApp Consult for Decant */}
           <div className="pt-4 border-t border-[#27272a] space-y-4">
-            {product.isPricePending ? (
+            {product.soldOut ? (
+              <div className="space-y-3">
+                <div className="w-full py-3.5 px-4 rounded-lg bg-[#27272a] border border-[#3f3f46] text-[#a1a1aa] text-xs sm:text-sm font-bold uppercase tracking-wider text-center">
+                  Produto esgotado no momento
+                </div>
+                <a
+                  href={`https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(
+                    `Olá! Gostaria de ser avisado quando o ${product.name} voltar ao estoque.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 px-4 rounded-lg bg-[#18181b] hover:bg-[#222228] border border-[#d4af37] text-[#f7e2a9] text-xs font-semibold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer text-center"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Avise-me quando chegar</span>
+                </a>
+              </div>
+            ) : product.isPricePending ? (
               <div className="space-y-3">
                 <a
                   href={`https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(

@@ -19,6 +19,7 @@ export interface Product {
   tag?: string;
   isPricePending?: boolean;
   isDecant?: boolean;
+  soldOut?: boolean; // true = produto esgotado (aparece no catálogo, mas não pode ser comprado)
 }
 
 export interface CartItem {

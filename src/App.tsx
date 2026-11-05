@@ -33,7 +33,7 @@ function loadCart(): CartItem[] {
       const id = entry?.id ?? entry?.product?.id;
       const quantity = Math.floor(Number(entry?.quantity));
       const product = PRODUCTS.find((p) => p.id === id);
-      if (product && !product.isPricePending && quantity > 0) {
+      if (product && !product.isPricePending && !product.soldOut && quantity > 0) {
         items.push({ product, quantity });
       }
     }
@@ -98,6 +98,10 @@ export default function App() {
 
   // Cart operations
   const handleAddToCart = (product: Product, quantity = 1) => {
+    if (product.soldOut) {
+      showToast(`"${product.name}" está esgotado no momento.`);
+      return;
+    }
     setCartItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
@@ -129,6 +133,7 @@ export default function App() {
   };
 
   const handleBuyNow = (product: Product, quantity = 1) => {
+    if (product.soldOut) return;
     handleAddToCart(product, quantity);
     setSelectedProduct(null);
     setIsCartOpen(false);

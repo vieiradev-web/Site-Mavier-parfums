@@ -20,6 +20,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const [justAdded, setJustAdded] = useState(false);
 
   const handleAdd = () => {
+    if (product.soldOut) return;
     onAddToCart(product);
     setJustAdded(true);
     setTimeout(() => {
@@ -35,7 +36,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* Top Media slot: 65-70% height with dark background */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0d0d10] flex items-center justify-center">
         {/* Subtle Luxury Tag - Unboxed text (Zero-Pill discipline) */}
-        {product.tag && (
+        {product.soldOut && (
+          <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded bg-[#09090b]/90 border border-[#ef4444]/60 text-[11px] font-bold tracking-wider uppercase text-[#ef4444]">
+            Esgotado
+          </div>
+        )}
+        {product.tag && !product.soldOut && (
           <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#09090b]/80 backdrop-blur-md border border-[#d4af37]/40 text-[11px] font-medium tracking-wider uppercase text-[#d4af37]">
             <Sparkles className="w-3 h-3 text-[#d4af37]" />
             <span>{product.tag}</span>
@@ -71,8 +77,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onLoad={() => setImageLoaded(true)}
             onError={() => setImageError(true)}
             className={`w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+              imageLoaded ? (product.soldOut ? 'opacity-50' : 'opacity-100') : 'opacity-0'
+            } ${product.soldOut ? 'grayscale' : ''}`}
           />
         )}
 
@@ -171,7 +177,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             Ver Detalhes
           </button>
 
-          {product.isPricePending ? (
+          {product.soldOut ? (
+            <button
+              type="button"
+              disabled
+              aria-label={`${product.name} está esgotado`}
+              className="w-full py-2 px-3 rounded-lg text-xs font-semibold tracking-wide flex items-center justify-center gap-1.5 whitespace-nowrap bg-[#27272a] text-[#71717a] border border-[#3f3f46] cursor-not-allowed"
+            >
+              <span>Esgotado</span>
+            </button>
+          ) : product.isPricePending ? (
             <a
               href={`https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(
                 `Olá! Gostaria de saber o valor e a disponibilidade do ${product.name}.`
