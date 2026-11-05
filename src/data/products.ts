@@ -303,7 +303,7 @@ A embalagem sofisticada e dourada protege a fragrância e a torna uma peça de d
   },
   {
     id: 'bareeq-al-dhahab',
-    name: 'Bareeq Al Dhahab Al Wataniah 100m',
+    name: 'Bareeq Al Dhahab Al Wataniah 100ml',
     category: 'Perfume Árabe',
     brand: 'Al Wataniah',
     gender: 'Unissex',

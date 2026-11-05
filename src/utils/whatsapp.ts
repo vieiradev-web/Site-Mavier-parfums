@@ -50,36 +50,36 @@ export function generateOrderWhatsAppMessage(
     ? `\n   • Ponto de Referência: ${customerInfo.address.reference}`
     : '';
   const notesText = customerInfo.notes
-    ? `\n\n📝 *Observações adicionais:*\n"${customerInfo.notes}"`
+    ? `\n\n*Observações adicionais:*\n"${customerInfo.notes}"`
     : '';
 
   const totalBlock = isPix
-    ? `• Subtotal: ${formatCurrency(subtotal)}\n• 🎁 *Desconto Pix (5% OFF):* -${formatCurrency(pixDiscount)}\n• *VALOR TOTAL NO PIX: ${formatCurrency(finalTotal)}*`
+    ? `• Subtotal: ${formatCurrency(subtotal)}\n• *Desconto Pix (5% OFF):* -${formatCurrency(pixDiscount)}\n• *VALOR TOTAL NO PIX: ${formatCurrency(finalTotal)}*`
     : `• *${formatCurrency(subtotal)}*\n• _(ou em até 3x de ${formatCurrency(subtotal / 3)} sem juros no cartão)_`;
 
-  const message = `✨ *NOVO PEDIDO — ${STORE_INFO.name.toUpperCase()}* ✨
+  const message = `*NOVO PEDIDO — ${STORE_INFO.name.toUpperCase()}*
 ━━━━━━━━━━━━━━━━━━━━━━━
 
-👤 *DADOS DO CLIENTE:*
+*DADOS DO CLIENTE:*
 • *Nome:* ${customerInfo.customerName}
 • *WhatsApp de Contato:* ${customerInfo.customerPhone || 'Informado no envio'}
 
-📍 *ENDEREÇO DE ENTREGA:*
+*ENDEREÇO DE ENTREGA:*
    • Logradouro: ${customerInfo.address.street}, Nº ${customerInfo.address.number}${complementText}
    • Bairro: ${customerInfo.address.neighborhood}
    • Cidade / UF: ${customerInfo.address.city} - ${customerInfo.address.state}
    • CEP: ${customerInfo.address.cep}${refText}
 
-💳 *FORMA DE PAGAMENTO SELECIONADA:*
+*FORMA DE PAGAMENTO SELECIONADA:*
 • ${formatPaymentMethod(customerInfo.paymentMethod)}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-🛍️ *ITENS DO PEDIDO (${cartItems.reduce((acc, i) => acc + i.quantity, 0)} itens):*
+*ITENS DO PEDIDO (${cartItems.reduce((acc, i) => acc + i.quantity, 0)} itens):*
 
 ${itemsList}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
-💰 *VALOR TOTAL DO PEDIDO:*
+*VALOR TOTAL DO PEDIDO:*
 ${totalBlock}
 
 *(Frete / prazo de entrega a confirmar com o atendente)*${notesText}
