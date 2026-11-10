@@ -20,6 +20,7 @@ npm run dev        # abre em http://localhost:3000
 
 - **Preço de um produto:** altere o campo `price`. O carrinho de quem já visitou o site é atualizado sozinho.
 - **Produto "sob consulta":** use `price: 0` e `isPricePending: true`; ele mostra o botão de consultar pelo WhatsApp.
+- **Black Friday:** em `src/data/products.ts`, a chave `BLACK_FRIDAY_ATIVA` liga (`true`) ou desliga (`false`) todas as promoções. Os preços promocionais ficam em `PRECOS_BLACK_FRIDAY` (id do produto: preço) e o desconto dos decants em `DESCONTO_DECANTS_BLACK_FRIDAY`. Os preços normais não são alterados.
 - **Produto esgotado:** adicione `soldOut: true,` no produto. Ele continua no catálogo, com selo "Esgotado" e foto em preto e branco, sem botão de compra (há um link para pedir aviso pelo WhatsApp). Para voltar a vender, apague a linha ou use `soldOut: false`.
 - **Filtro de valor:** os limites do controle deslizante são calculados automaticamente a partir dos preços cadastrados.
 - **Desconto no Pix:** 5% (aplicado no carrinho, no checkout e na mensagem do WhatsApp).

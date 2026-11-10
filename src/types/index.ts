@@ -19,6 +19,7 @@ export interface Product {
   tag?: string;
   isPricePending?: boolean;
   isDecant?: boolean;
+  originalPrice?: number; // preço normal, preenchido só enquanto o produto está em promoção
   soldOut?: boolean; // true = produto esgotado (aparece no catálogo, mas não pode ser comprado)
 }
 

@@ -29,6 +29,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const pixPrice = product.price * 0.95;
+  const discountPct = product.originalPrice
+    ? Math.round((1 - product.price / product.originalPrice) * 100)
+    : 0;
   const installmentValue = product.price / 3;
 
   return (
@@ -141,6 +144,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         ) : (
           <div className="pt-2.5 mt-auto border-t border-[#27272a]/60">
             <div className="space-y-1">
+              {product.originalPrice && (
+                <div className="flex items-center justify-between gap-1 text-[11px]">
+                  <span className="font-bold uppercase tracking-wider text-[#fca5a5]">
+                    Black Friday -{discountPct}%
+                  </span>
+                  <span className="text-[#a1a1aa] font-mono">
+                    de <span className="line-through">{formatCurrency(product.originalPrice)}</span>
+                  </span>
+                </div>
+              )}
               <div className="flex items-center justify-between gap-1">
                 <span className="text-[11px] font-semibold text-[#22c55e] flex items-center gap-1.5 uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse" />

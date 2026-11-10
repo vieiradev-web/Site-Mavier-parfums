@@ -132,6 +132,17 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </div>
           ) : (
             <div className="bg-[#18181b] p-5 rounded-xl border border-[#27272a] space-y-3">
+              {product.originalPrice && (
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold uppercase tracking-wider text-[#fca5a5]">
+                    Oferta Black Friday
+                  </span>
+                  <span className="text-[#a1a1aa] font-mono">
+                    de <span className="line-through">{formatCurrency(product.originalPrice)}</span> por{' '}
+                    {formatCurrency(product.price)}
+                  </span>
+                </div>
+              )}
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#22c55e]/15 border border-[#22c55e]/30 text-xs font-semibold text-[#22c55e]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />

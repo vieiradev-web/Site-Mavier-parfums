@@ -11,7 +11,7 @@ export const STORE_INFO = {
   logo: './image/logo.jpeg',
 };
 
-export const PRODUCTS: Product[] = [
+const BASE_PRODUCTS: Product[] = [
   {
     id: 'asad-tradicional',
     name: 'Asad Tradicional Lattafa 100 ML',
@@ -48,7 +48,6 @@ Sua composição combina um lado especiado, quente e amadeirado, criando um arom
     brand: 'Lattafa',
     gender: 'Masculino',
     price: 297.90,
-    soldOut: true,
     volume: '100 ml',
     concentration: 'Eau de Parfum Elixir',
     olfactoryFamily: 'Amadeirada · Aromática · Especiada Oriental',
@@ -129,7 +128,6 @@ Sensação: tropical, feminina, cremosa e irresistível. Ideal para o dia a dia,
     brand: 'Armaf',
     gender: 'Masculino',
     price: 297.90,
-    soldOut: true,
     volume: '105 ml',
     concentration: 'Eau de Toilette',
     olfactoryFamily: 'Amadeirado Especiado Cítrico',
@@ -206,7 +204,6 @@ Destinado a quem busca sofisticação e sobriedade, entrega uma experiência olf
     brand: 'Asdaaf',
     gender: 'Feminino',
     price: 267.90,
-    soldOut: true,
     volume: '80 ml',
     concentration: 'Eau de Parfum',
     olfactoryFamily: 'Floral Frutado Gourmand',
@@ -257,7 +254,6 @@ Seu formato em spray facilita a aplicação generosa. O Intrude Maison Alhambra 
     brand: 'Maison Alhambra',
     gender: 'Unissex',
     price: 207.90,
-    soldOut: true,
     volume: '100 ml',
     concentration: 'Eau de Parfum',
     olfactoryFamily: 'Cítrico Frutado Ambarado',
@@ -370,7 +366,6 @@ Ideal para você experimentar na sua pele toda a evolução, intensidade e rastr
     brand: 'Lattafa',
     gender: 'Masculino',
     price: 35,
-    soldOut: true,
     volume: '5 ml',
     concentration: 'Eau de Parfum Elixir (Fração 5ml)',
     olfactoryFamily: 'Amadeirada · Aromática · Especiada Oriental',
@@ -673,6 +668,39 @@ Conheça na sua pele toda a riqueza oriental do açafrão, pimenta rosa, incenso
     },
   },
 ];
+
+// =====================================================================
+// BLACK FRIDAY
+// Chave geral: true = promoções ligadas, false = desligadas.
+// Os preços originais acima nunca são alterados: com a chave desligada o
+// catálogo volta sozinho aos preços normais.
+// =====================================================================
+export const BLACK_FRIDAY_ATIVA = true;
+
+// Preço promocional de cada produto (valor de tabela, antes dos 5% de desconto no Pix).
+const PRECOS_BLACK_FRIDAY: Record<string, number> = {
+  'khamrah-dukhan': 227,
+  'luxe-gold-alhambra': 207,
+  'bareeq-al-dhahab': 227,
+  'yara-tous': 237,
+  'yara-rosa': 267,
+  'club-de-nuit-intense-woman': 257,
+};
+
+// Desconto (%) aplicado a todos os decants que não estão na lista acima.
+const DESCONTO_DECANTS_BLACK_FRIDAY = 10;
+
+export const PRODUCTS: Product[] = BASE_PRODUCTS.map((product) => {
+  if (!BLACK_FRIDAY_ATIVA || product.isPricePending) return product;
+
+  let promoPrice: number | undefined = PRECOS_BLACK_FRIDAY[product.id];
+  if (promoPrice === undefined && product.isDecant) {
+    promoPrice = Math.round(product.price * (1 - DESCONTO_DECANTS_BLACK_FRIDAY / 100) * 100) / 100;
+  }
+  if (promoPrice === undefined || promoPrice >= product.price) return product;
+
+  return { ...product, price: promoPrice, originalPrice: product.price };
+});
 
 // Limites do filtro de valor, calculados a partir dos preços reais do catálogo.
 // Assim, um perfume mais caro (ou mais barato) cadastrado no futuro nunca fica escondido.

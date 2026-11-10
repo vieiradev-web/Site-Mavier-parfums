@@ -37,7 +37,7 @@ export function generateOrderWhatsAppMessage(
   const itemsList = cartItems
     .map((item, index) => {
       const itemTotal = item.product.price * item.quantity;
-      return `${index + 1}. *${item.product.name}*\n   • Qtd: ${item.quantity} un. × ${formatCurrency(
+      return `${index + 1}. *${item.product.name}*${item.product.originalPrice ? ' _(Black Friday)_' : ''}\n   • Qtd: ${item.quantity} un. × ${formatCurrency(
         item.product.price
       )} = *${formatCurrency(itemTotal)}*`;
     })
