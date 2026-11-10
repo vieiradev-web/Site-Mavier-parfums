@@ -540,6 +540,7 @@ Aprecie as nuances ricas de incenso sagrado, tabaco nobre, pralinê e especiaria
     brand: 'Asdaaf',
     gender: 'Feminino',
     price: 35,
+    soldOut: true,
     volume: '5 ml',
     concentration: 'Eau de Parfum (Fração 5ml)',
     olfactoryFamily: 'Floral Frutado Gourmand',
