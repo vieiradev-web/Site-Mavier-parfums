@@ -13,13 +13,94 @@ export const STORE_INFO = {
 
 const BASE_PRODUCTS: Product[] = [
   {
+    id: 'fakhar-black-lattafa',
+    name: 'Fakhar Black Lattafa Edp 100ml',
+    category: 'Perfume Árabe',
+    brand: 'Lattafa',
+    gender: 'Masculino',
+    price: 277.00,
+    volume: '100 ml',
+    concentration: 'Eau de Parfum',
+    olfactoryFamily: 'Aromático Amadeirado Fresco',
+    image: './image/fakhar_black.jpg',
+    tag: 'Força e Elegância',
+    description: `Perfume Fakhar Black — Lattafa
+Uma fragrância masculina, fresca e elegante, que também pode ser compartilhada por quem aprecia perfumes aromáticos e amadeirados.
+O Fakhar Black abre com maçã, bergamota e gengibre, em uma saída vibrante e cheia de energia. No coração, lavanda, sálvia, bagas de zimbro e gerânio trazem um toque aromático refinado, antes de a fragrância se assentar em um fundo quente e amadeirado de fava tonka, madeira de âmbar, cedro e vetiver.
+Sensação: fresca, aromática e marcante. Ideal para o dia a dia, o trabalho e encontros à noite.`,
+    highlights: [
+      'Destaques: maçã, bergamota, gengibre, lavanda e cedro',
+      'Abertura fresca e energética com fundo amadeirado e quente',
+      'Perfil versátil, que agrada também a quem gosta de perfumes compartilháveis',
+    ],
+    notes: {
+      top: 'Maçã, Bergamota, Gengibre',
+      heart: 'Lavanda, Sálvia, Bagas de Zimbro, Gerânio',
+      base: 'Fava Tonka, Madeira de Âmbar, Cedro, Vetiver',
+    },
+  },
+  {
+    id: 'fakhar-rose-lattafa',
+    name: 'Fakhar Rose Lattafa Edp 100ml',
+    category: 'Perfume Árabe',
+    brand: 'Lattafa',
+    gender: 'Feminino',
+    price: 297.00,
+    volume: '100 ml',
+    concentration: 'Eau de Parfum',
+    olfactoryFamily: 'Floral Quente Frutado',
+    image: './image/fakhar_rose.jpg',
+    tag: 'Rosas e Romance',
+    description: `Perfume Fakhar Rose — Lattafa
+Uma fragrância feminina, floral e luminosa, para quem gosta de perfumes elegantes, delicados e cheios de presença.
+O Fakhar Rose abre com aldeídos, lírio, romã e frutas suculentas, em uma saída leve e radiante. No coração, um buquê floral de rosa, jasmim e gardênia traz romantismo e sofisticação, repousando sobre um fundo cremoso e aconchegante de baunilha, almíscar branco, sândalo e ambroxan.
+Sensação: floral, delicada e envolvente. Ideal para o dia a dia, passeios e ocasiões especiais.`,
+    highlights: [
+      'Destaques: rosa, jasmim, gardênia, romã e baunilha',
+      'Buquê floral com toque frutado e fundo cremoso',
+      'Frasco elegante em branco e rosa dourado',
+    ],
+    notes: {
+      top: 'Aldeídos, Lírio, Romã, Frutas suculentas',
+      heart: 'Rosa, Jasmim, Gardênia',
+      base: 'Baunilha, Almíscar branco, Sândalo, Ambroxan',
+    },
+  },
+  {
+    id: 'shagaf-al-ward-al-wataniah',
+    name: 'Shagaf Al Ward Al Wataniah Edp 100ml',
+    category: 'Perfume Árabe',
+    brand: 'Al Wataniah',
+    gender: 'Feminino',
+    price: 237.00,
+    volume: '100 ml',
+    concentration: 'Eau de Parfum',
+    olfactoryFamily: 'Âmbar Floral',
+    image: './image/shagaf_al_ward.jpg',
+    tag: 'Paixão por Flores',
+    description: `Perfume Shagaf Al Ward — Al Wataniah
+O nome significa “paixão por flores”, e é isso que esta fragrância feminina entrega: um perfume floral âmbar, romântico e sofisticado, inspirado em jardins orientais.
+Abre com jasmim, osmanthus e rosa de maio, em uma saída floral fresca e envolvente. No coração, tuberosa da Índia e narciso trazem profundidade e feminilidade, antes de o fundo quente de âmbar e cedro prolongar o rastro com elegância.
+Sensação: floral, romântica e acolhedora. Ótima para o dia a dia e para ocasiões especiais.`,
+    highlights: [
+      'Destaques: jasmim, osmanthus, rosa de maio, tuberosa e âmbar',
+      'Nome que significa “paixão por flores”',
+      'Fundo quente e amadeirado com âmbar e cedro',
+    ],
+    notes: {
+      top: 'Jasmim, Osmanthus, Rosa de Maio',
+      heart: 'Tuberosa da Índia, Narciso',
+      base: 'Âmbar, Cedro',
+    },
+  },
+  {
+    
     id: 'asad-tradicional',
     name: 'Asad Tradicional Lattafa 100 ML',
     category: 'Perfume Árabe',
     brand: 'Lattafa',
     gender: 'Masculino',
     price: 287.90,
-    soldOut: true,
     volume: '100 ml',
     concentration: 'Eau de Parfum',
     olfactoryFamily: 'Oriental Especiado & Amadeirado',
@@ -259,7 +340,6 @@ Seu formato em spray facilita a aplicação generosa. O Intrude Maison Alhambra 
     brand: 'Maison Alhambra',
     gender: 'Unissex',
     price: 207.90,
-    soldOut: true,
     volume: '100 ml',
     concentration: 'Eau de Parfum',
     olfactoryFamily: 'Cítrico Frutado Ambarado',
@@ -333,6 +413,8 @@ Com excelente projeção e fixação, o Bareeq Al Dhahab entrega uma experiênci
       base: 'Âmbar rico, Almíscar branco, Patchouli, Notas amadeiradas',
     },
   },
+
+  
   // -------------------------------------------------------------
   // DECANTS (5ml) — Frações Exclusivas em Frascos de Vidro Premium
   // Preços: R$ 35 (Asad, Club de Nuit, Yara Rosa, Raneen) e R$ 30 (demais).
